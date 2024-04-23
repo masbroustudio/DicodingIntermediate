@@ -1,0 +1,43 @@
+import 'dart:convert';
+
+/// user.dart
+class User {
+  String? email;
+  String? password;
+
+  User({
+    this.email,
+    this.password,
+  });
+
+  @override
+  String toString() => 'User(email: $email, password: $password)';
+
+  // Tambahkan beberapa method agar objek User mampu mengembalikan data Map ataupun JSON.
+  Map<String, dynamic> toMap() {
+    return {
+      'email': email,
+      'password': password,
+    };
+  }
+
+  factory User.fromMap(Map<String, dynamic> map) {
+    return User(
+      email: map['email'],
+      password: map['password'],
+    );
+  }
+  String toJson() => json.encode(toMap());
+  factory User.fromJson(String source) => User.fromMap(json.decode(source));
+
+  // tambahkan juga method hashCode dan operator equal. Dengan begitu, objek User mampu dibandingkan dengan objek User lainnya.
+  @override
+  bool operator ==(Object other) {
+    if (identical(this, other)) return true;
+
+    return other is User && other.email == email && other.password == password;
+  }
+
+  @override
+  int get hashCode => Object.hash(email, password);
+}
