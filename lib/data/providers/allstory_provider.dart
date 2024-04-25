@@ -1,12 +1,11 @@
 import 'dart:developer';
 
+import 'package:flutstory/data/models/story.dart';
+import 'package:flutstory/data/network/response_call.dart';
+import 'package:flutstory/data/repositories/story_repository.dart';
 import 'package:flutter/material.dart';
 
-import '../data/models/story.dart';
-import '../data/network/response_call.dart';
-import '../data/repositories/story_repository.dart';
-
-class StoryProvider extends ChangeNotifier {
+class AllstoryProvider extends ChangeNotifier {
   final StoryRepository storyRepository;
 
   ResponseCall<List<Story>> responseCall =
@@ -15,7 +14,7 @@ class StoryProvider extends ChangeNotifier {
   int page = 1;
   int size = 10;
 
-  StoryProvider({required this.storyRepository});
+  AllstoryProvider({required this.storyRepository});
 
   Future<void> getAllStories() async {
     responseCall = ResponseCall.loading("loading");

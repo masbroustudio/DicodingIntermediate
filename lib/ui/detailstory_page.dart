@@ -3,21 +3,21 @@ import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:go_router/go_router.dart';
 
-import '../../data/models/story.dart';
-import '../../utils/date_formatter.dart';
+import '../data/models/story.dart';
+import '../utils/utilemail_validation.dart';
 
-class DetailScreen extends StatefulWidget {
+class DetailstoryPage extends StatefulWidget {
   static const path = 'detail';
 
   final Story story;
 
-  const DetailScreen({super.key, required this.story});
+  const DetailstoryPage({super.key, required this.story});
 
   @override
-  State<DetailScreen> createState() => _DetailScreenState();
+  State<DetailstoryPage> createState() => _DetailstoryPageState();
 }
 
-class _DetailScreenState extends State<DetailScreen> {
+class _DetailstoryPageState extends State<DetailstoryPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(

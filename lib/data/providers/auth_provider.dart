@@ -2,17 +2,17 @@ import 'dart:developer';
 
 import 'package:flutter/material.dart';
 
-import '../data/local/app_preferences.dart';
-import '../data/models/user.dart';
-import '../data/network/response_call.dart';
-import '../data/repositories/auth_repository.dart';
+import '../local/app_preferences.dart';
+import '../models/user.dart';
+import '../network/response_call.dart';
+import '../repositories/auth_repository.dart';
 
-class LoginProvider extends ChangeNotifier {
+class AuthProvider extends ChangeNotifier {
   final AuthRepository authRepository;
 
   ResponseCall responseCall = ResponseCall.iddle("iddle");
 
-  LoginProvider({required this.authRepository});
+  AuthProvider({required this.authRepository});
 
   Future<User?> login({required String email, required String password}) async {
     responseCall = ResponseCall.loading("loading");
@@ -36,7 +36,7 @@ class LoginProvider extends ChangeNotifier {
 
       return await AppPreferences.getUser();
     } catch (e) {
-      log(e.toString(), name: "LOGIN PROVIDER");
+      log(e.toString(), name: "AUTH PROVIDER");
 
       responseCall = ResponseCall.error(e.toString());
       notifyListeners();

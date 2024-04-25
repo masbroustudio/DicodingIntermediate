@@ -1,46 +1,47 @@
+import 'package:flutstory/data/providers/addstory_provider.dart';
+import 'package:flutstory/data/providers/allstory_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:go_router/go_router.dart';
 import 'package:provider/provider.dart';
 
-import '../../data/local/app_preferences.dart';
-import '../../data/network/response_call.dart';
-import '../../providers/story_provider.dart';
-import '../../widgets/language_selector.dart';
-import '../../widgets/list_story_loading.dart';
-import '../../widgets/story_card.dart';
-import '../add/add_screen.dart';
-import '../login/login_screen.dart';
+import '../data/local/app_preferences.dart';
+import '../data/network/response_call.dart';
+import '../widgets/language_selector.dart';
+import '../widgets/list_story_loading.dart';
+import '../widgets/story_card.dart';
+import 'addstory_page.dart';
+import 'loginstory_page.dart';
 
-class HomeScreen extends StatefulWidget {
+class HomestoryPage extends StatefulWidget {
   static const path = '/stories';
 
-  const HomeScreen({super.key});
+  const HomestoryPage({super.key});
 
   @override
-  State<HomeScreen> createState() => _HomeScreenState();
+  State<HomestoryPage> createState() => _HomestoryPageState();
 }
 
-class _HomeScreenState extends State<HomeScreen> {
+class _HomestoryPageState extends State<HomestoryPage> {
   _initLoadData() async {
     await Future.delayed(const Duration(milliseconds: 300));
     if (mounted) {
-      context.read<StoryProvider>().getAllStories();
+      context.read<AllstoryProvider>().getAllStories();
     }
   }
 
   Future<void> _onRefresh() async {
-    await context.read<StoryProvider>().getAllStories();
+    await context.read<AllstoryProvider>().getAllStories();
   }
 
   void _handleNavigateNewStory() {
-    context.pushNamed(AddScreen.path);
+    context.pushNamed(AddstoryPage.path);
   }
 
   void _handleLogout() async {
     await AppPreferences.clearSession();
     if (mounted) {
-      context.pushReplacementNamed(LoginScreen.path);
+      context.pushReplacementNamed(LoginstoryPage.path);
     }
   }
 
@@ -65,7 +66,7 @@ class _HomeScreenState extends State<HomeScreen> {
         onPressed: _handleNavigateNewStory,
         child: const Icon(Icons.add),
       ),
-      body: Consumer<StoryProvider>(
+      body: Consumer<AllstoryProvider>(
         builder: (context, value, child) {
           if (value.responseCall.status == Status.loading) {
             return const ListStoryLoading();

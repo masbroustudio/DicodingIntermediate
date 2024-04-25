@@ -15,6 +15,22 @@ class AppPreferences {
     return preferences.getBool(isLoggedIn) ?? false;
   }
 
+  static Future<User> getUser() async {
+    final preferences = await SharedPreferences.getInstance();
+
+    final id = preferences.getString(userId) ?? "";
+    final userName = preferences.getString(name) ?? "";
+    final userEmail = preferences.getString(email) ?? "";
+
+    return User(id: id, name: userName, email: userEmail);
+  }
+
+  static Future<String> getToken() async {
+    final preferences = await SharedPreferences.getInstance();
+
+    return preferences.getString(token) ?? "";
+  }
+
   static Future<bool> saveSession({
     required String id,
     required String userEmail,
@@ -29,22 +45,6 @@ class AppPreferences {
     await preferences.setString(token, userToken);
 
     return await preferences.setBool(isLoggedIn, true);
-  }
-
-  static Future<String> getToken() async {
-    final preferences = await SharedPreferences.getInstance();
-
-    return preferences.getString(token) ?? "";
-  }
-
-  static Future<User> getUser() async {
-    final preferences = await SharedPreferences.getInstance();
-
-    final id = preferences.getString(userId) ?? "";
-    final userName = preferences.getString(name) ?? "";
-    final userEmail = preferences.getString(email) ?? "";
-
-    return User(id: id, name: userName, email: userEmail);
   }
 
   static Future<bool> clearSession() async {

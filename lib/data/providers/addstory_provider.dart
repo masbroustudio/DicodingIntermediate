@@ -3,17 +3,17 @@ import 'dart:io';
 import 'package:flutter/foundation.dart';
 import 'package:image/image.dart' as img;
 
-import '../data/network/response_call.dart';
-import '../data/repositories/story_repository.dart';
+import '../network/response_call.dart';
+import '../repositories/story_repository.dart';
 
-class AddProvider extends ChangeNotifier {
+class AddstoryProvider extends ChangeNotifier {
   final StoryRepository storyRepository;
 
   ResponseCall responseCall = ResponseCall.iddle("iddle");
 
   File? selectedImage;
 
-  AddProvider({required this.storyRepository});
+  AddstoryProvider({required this.storyRepository});
 
   resetInput() {
     responseCall = ResponseCall.iddle("iddle");

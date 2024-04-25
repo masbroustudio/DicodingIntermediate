@@ -4,20 +4,20 @@ import 'package:fluttertoast/fluttertoast.dart';
 import 'package:go_router/go_router.dart';
 import 'package:provider/provider.dart';
 
-import '../../data/network/response_call.dart';
-import '../../providers/register_provider.dart';
-import '../../utils/email_validator.dart';
+import '../data/network/response_call.dart';
+import '../data/providers/user_provider.dart';
+import '../utils/utilemail_validation.dart';
 
-class RegisterScreen extends StatefulWidget {
+class RegisterstoryPage extends StatefulWidget {
   static const path = '/register';
 
-  const RegisterScreen({super.key});
+  const RegisterstoryPage({super.key});
 
   @override
-  State<RegisterScreen> createState() => _RegisterScreenState();
+  State<RegisterstoryPage> createState() => _RegisterstoryPageState();
 }
 
-class _RegisterScreenState extends State<RegisterScreen> {
+class _RegisterstoryPageState extends State<RegisterstoryPage> {
   GlobalKey<FormState> formKey = GlobalKey<FormState>();
   TextEditingController inputEmail = TextEditingController();
   TextEditingController inputName = TextEditingController();
@@ -30,7 +30,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
   void _handleRegister() async {
     if (!formKey.currentState!.validate()) return;
 
-    final registerProvider = context.read<RegisterProvider>();
+    final registerProvider = context.read<UserProvider>();
 
     final isRegisterComplete = await registerProvider.register(
       name: inputName.text.trim(),
@@ -181,7 +181,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
               },
             ),
             const SizedBox(height: 8),
-            Consumer<RegisterProvider>(
+            Consumer<UserProvider>(
               builder: (context, value, child) {
                 return ElevatedButton(
                   onPressed: value.responseCall.status == Status.loading

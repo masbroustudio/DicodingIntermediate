@@ -4,22 +4,22 @@ import 'package:fluttertoast/fluttertoast.dart';
 import 'package:go_router/go_router.dart';
 import 'package:provider/provider.dart';
 
-import '../../data/network/response_call.dart';
-import '../../providers/login_provider.dart';
-import '../../utils/email_validator.dart';
-import '../home/home_screen.dart';
-import '../register/register_screen.dart';
+import '../data/network/response_call.dart';
+import '../data/providers/auth_provider.dart';
+import '../utils/utilemail_validation.dart';
+import 'homestory_page.dart';
+import 'registerstory_page.dart';
 
-class LoginScreen extends StatefulWidget {
+class LoginstoryPage extends StatefulWidget {
   static const path = '/login';
 
-  const LoginScreen({super.key});
+  const LoginstoryPage({super.key});
 
   @override
-  State<LoginScreen> createState() => _LoginScreenState();
+  State<LoginstoryPage> createState() => _LoginstoryPageState();
 }
 
-class _LoginScreenState extends State<LoginScreen> {
+class _LoginstoryPageState extends State<LoginstoryPage> {
   GlobalKey<FormState> formKey = GlobalKey<FormState>();
   TextEditingController inputEmail = TextEditingController();
   TextEditingController inputPassword = TextEditingController();
@@ -29,7 +29,7 @@ class _LoginScreenState extends State<LoginScreen> {
   void _handleLogin() async {
     if (!formKey.currentState!.validate()) return;
 
-    final loginProvider = context.read<LoginProvider>();
+    final loginProvider = context.read<AuthProvider>();
 
     final result = await loginProvider.login(
       email: inputEmail.text.trim(),
@@ -43,7 +43,7 @@ class _LoginScreenState extends State<LoginScreen> {
     }
 
     if (mounted) {
-      context.pushReplacementNamed(HomeScreen.path);
+      context.pushReplacementNamed(HomestoryPage.path);
     }
   }
 
@@ -54,7 +54,7 @@ class _LoginScreenState extends State<LoginScreen> {
   }
 
   void _handleNavigateRegister() {
-    context.pushNamed(RegisterScreen.path);
+    context.pushNamed(RegisterstoryPage.path);
   }
 
   @override
@@ -124,7 +124,7 @@ class _LoginScreenState extends State<LoginScreen> {
               },
             ),
             const SizedBox(height: 8),
-            Consumer<LoginProvider>(
+            Consumer<AuthProvider>(
               builder: (context, value, child) {
                 return ElevatedButton(
                   onPressed: value.responseCall.status == Status.loading

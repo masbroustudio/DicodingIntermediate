@@ -1,3 +1,5 @@
+import 'package:flutstory/data/providers/addstory_provider.dart';
+import 'package:flutstory/data/providers/allstory_provider.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter/material.dart';
@@ -6,12 +8,10 @@ import 'package:provider/provider.dart';
 import 'configs/theme.dart';
 import 'data/repositories/auth_repository.dart';
 import 'data/repositories/story_repository.dart';
-import 'providers/add_provider.dart';
-import 'providers/localization_provider.dart';
-import 'providers/login_provider.dart';
-import 'providers/register_provider.dart';
-import 'providers/story_provider.dart';
-import 'routes/router_config.dart';
+import 'data/providers/localization_provider.dart';
+import 'data/providers/auth_provider.dart';
+import 'data/providers/user_provider.dart';
+import 'route/routes_config.dart';
 
 void main() {
   runApp(const StoryApp());
@@ -31,16 +31,18 @@ class StoryApp extends StatelessWidget {
           create: (context) => LocalizationProvider(),
         ),
         ChangeNotifierProvider(
-          create: (context) => LoginProvider(authRepository: authRepository),
+          create: (context) => AuthProvider(authRepository: authRepository),
         ),
         ChangeNotifierProvider(
-          create: (context) => RegisterProvider(authRepository: authRepository),
+          create: (context) => UserProvider(authRepository: authRepository),
         ),
         ChangeNotifierProvider(
-          create: (context) => StoryProvider(storyRepository: storyRepository),
+          create: (context) =>
+              AllstoryProvider(storyRepository: storyRepository),
         ),
         ChangeNotifierProvider(
-          create: (context) => AddProvider(storyRepository: storyRepository),
+          create: (context) =>
+              AddstoryProvider(storyRepository: storyRepository),
         ),
       ],
       builder: (context, child) {
@@ -60,7 +62,7 @@ class StoryApp extends StatelessWidget {
             Locale('en', ''),
           ],
           theme: themeData,
-          routerConfig: routerConfig,
+          routerConfig: routesConfig,
           debugShowCheckedModeBanner: false,
         );
       },

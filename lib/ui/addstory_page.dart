@@ -1,5 +1,8 @@
 import 'dart:io';
 
+import 'package:flutstory/data/providers/addstory_provider.dart';
+import 'package:flutstory/data/providers/allstory_provider.dart';
+import 'package:flutstory/utils/utilimage_selector.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:go_router/go_router.dart';
@@ -9,21 +12,18 @@ import 'package:path/path.dart' as path;
 import 'package:path_provider/path_provider.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
-import '../../data/network/response_call.dart';
-import '../../providers/add_provider.dart';
-import '../../providers/story_provider.dart';
-import '../../utils/image_selector.dart';
+import '../data/network/response_call.dart';
 
-class AddScreen extends StatefulWidget {
+class AddstoryPage extends StatefulWidget {
   static const path = 'add';
 
-  const AddScreen({super.key});
+  const AddstoryPage({super.key});
 
   @override
-  State<AddScreen> createState() => _AddScreenState();
+  State<AddstoryPage> createState() => _AddScreenState();
 }
 
-class _AddScreenState extends State<AddScreen> {
+class _AddScreenState extends State<AddstoryPage> {
   GlobalKey<FormState> formKey = GlobalKey<FormState>();
   TextEditingController inputDescription = TextEditingController();
 
@@ -41,7 +41,7 @@ class _AddScreenState extends State<AddScreen> {
     final savedFile = await File(image.path).copy(imageFile.path);
 
     if (mounted) {
-      context.read<AddProvider>().setImage(savedFile);
+      context.read<AddstoryProvider>().setImage(savedFile);
     }
   }
 
@@ -59,17 +59,17 @@ class _AddScreenState extends State<AddScreen> {
     final savedFile = await File(image.path).copy(imageFile.path);
 
     if (mounted) {
-      context.read<AddProvider>().setImage(savedFile);
+      context.read<AddstoryProvider>().setImage(savedFile);
     }
   }
 
   void _handleSelectPick() {
-    ImageSelector.showImagePicker(
+    UtilimageSelector.showImagePicker(
         context: context, onGallery: _onGallery, onCamera: _onCamera);
   }
 
   void _handleAddStory() async {
-    final addProvider = context.read<AddProvider>();
+    final addProvider = context.read<AddstoryProvider>();
 
     if (addProvider.selectedImage == null) {
       Fluttertoast.showToast(
@@ -87,7 +87,7 @@ class _AddScreenState extends State<AddScreen> {
     }
 
     if (mounted) {
-      context.read<StoryProvider>().getAllStories();
+      context.read<AllstoryProvider>().getAllStories();
       addProvider.resetInput();
       context.pop();
     }
@@ -120,7 +120,8 @@ class _AddScreenState extends State<AddScreen> {
                   border: Border.all(width: 1),
                   borderRadius: BorderRadius.circular(8),
                 ),
-                child: Consumer<AddProvider>(builder: (context, state, child) {
+                child: Consumer<AddstoryProvider>(
+                    builder: (context, state, child) {
                   if (state.selectedImage != null) {
                     return Stack(
                       children: [
@@ -172,7 +173,7 @@ class _AddScreenState extends State<AddScreen> {
               },
             ),
             const SizedBox(height: 8),
-            Consumer<AddProvider>(
+            Consumer<AddstoryProvider>(
               builder: (context, value, child) {
                 return ElevatedButton(
                   onPressed: value.responseCall.status == Status.loading

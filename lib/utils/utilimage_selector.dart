@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
-class ImageSelector {
+class UtilimageSelector {
   static showImagePicker(
       {required BuildContext context,
       required Function() onGallery,

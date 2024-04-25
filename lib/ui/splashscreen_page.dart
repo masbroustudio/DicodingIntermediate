@@ -4,20 +4,20 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
-import '../../data/local/app_preferences.dart';
-import '../home/home_screen.dart';
-import '../login/login_screen.dart';
+import '../data/local/app_preferences.dart';
+import 'homestory_page.dart';
+import 'loginstory_page.dart';
 
-class SplashScreen extends StatefulWidget {
+class SplashscreenPage extends StatefulWidget {
   static const path = '/';
 
-  const SplashScreen({super.key});
+  const SplashscreenPage({super.key});
 
   @override
-  State<SplashScreen> createState() => _SplashScreenState();
+  State<SplashscreenPage> createState() => _SplashscreenPageState();
 }
 
-class _SplashScreenState extends State<SplashScreen> {
+class _SplashscreenPageState extends State<SplashscreenPage> {
   _navigateNext() async {
     try {
       await Future.delayed(const Duration(seconds: 3));
@@ -25,12 +25,12 @@ class _SplashScreenState extends State<SplashScreen> {
       final isLoggedIn = await AppPreferences.checkIsLoggedIn();
 
       if (mounted && !isLoggedIn) {
-        context.pushReplacementNamed(LoginScreen.path);
+        context.pushReplacementNamed(LoginstoryPage.path);
         return;
       }
 
       if (mounted) {
-        context.pushReplacementNamed(HomeScreen.path);
+        context.pushReplacementNamed(HomestoryPage.path);
       }
     } catch (e) {
       log("Failed navigate from splash screen", name: "SPLASH SCREEN");

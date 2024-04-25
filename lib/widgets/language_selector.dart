@@ -3,7 +3,7 @@ import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:provider/provider.dart';
 
 import '../l10n/localization.dart';
-import '../providers/localization_provider.dart';
+import '../data/providers/localization_provider.dart';
 
 class LanguageSelector extends StatelessWidget {
   const LanguageSelector({super.key});

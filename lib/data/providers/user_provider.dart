@@ -2,14 +2,14 @@ import 'dart:developer';
 
 import 'package:flutter/material.dart';
 
-import '../data/network/response_call.dart';
-import '../data/repositories/auth_repository.dart';
+import '../network/response_call.dart';
+import '../repositories/auth_repository.dart';
 
-class RegisterProvider extends ChangeNotifier {
+class UserProvider extends ChangeNotifier {
   final AuthRepository authRepository;
   ResponseCall responseCall = ResponseCall.iddle("iddle");
 
-  RegisterProvider({required this.authRepository});
+  UserProvider({required this.authRepository});
 
   Future<bool> register({
     required String name,
@@ -31,7 +31,7 @@ class RegisterProvider extends ChangeNotifier {
 
       return result;
     } catch (e) {
-      log(e.toString(), name: "REGISTER PROVIDER");
+      log(e.toString(), name: "USER PROVIDER");
 
       responseCall = ResponseCall.error(e.toString());
       notifyListeners();

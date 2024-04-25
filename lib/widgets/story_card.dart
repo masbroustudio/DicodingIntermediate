@@ -1,10 +1,10 @@
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:flutstory/utils/utilemail_validation.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
 import '../data/models/story.dart';
-import '../modules/detail/detail_screen.dart';
-import '../utils/date_formatter.dart';
+import '../ui/detailstory_page.dart';
 
 class StoryCard extends StatelessWidget {
   const StoryCard({
@@ -17,7 +17,7 @@ class StoryCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return InkWell(
-      onTap: () => context.pushNamed(DetailScreen.path, extra: story),
+      onTap: () => context.pushNamed(DetailstoryPage.path, extra: story),
       borderRadius: BorderRadius.circular(8),
       child: Ink(
         decoration: BoxDecoration(
