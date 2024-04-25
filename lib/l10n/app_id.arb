@@ -1,0 +1,98 @@
+{
+  "titleApp": "Aplikasi Cerita",
+  "@titleApp": {
+    "description": "Deskripsi mengenai variabel titleApp"
+  },
+  "titleLogin": "Masuk",
+  "@titleLogin": {
+    "description": "Deskripsi mengenai variabel titleLogin"
+  },
+  "titleLogout": "Keluar",
+  "@titleLogout": {
+    "description": "Deskripsi mengenai variabel titleLogout"
+  },
+  "titleRegister": "Daftar",
+  "@titleRegister": {
+    "description": "Deskripsi mengenai variabel titleRegister"
+  },
+  "textEmail": "Email",
+  "@textEmail": {
+    "description": "Deskripsi mengenai variabel textEmail"
+  },
+  "textName": "Nama",
+  "@textName": {
+    "description": "Deskripsi mengenai variabel textName"
+  },
+  "textPassword": "Password",
+  "@textPassword": {
+    "description": "Deskripsi mengenai variabel textPassword"
+  },
+  "textRepeatPassword": "Ulangi Password",
+  "@textRepeatPassword": {
+    "description": "Deskripsi mengenai variabel textRepeatPassword"
+  },
+  "textInvalidEmail": "Masukkan email yang valid",
+  "@textInvalidEmail": {
+    "description": "Deskripsi mengenai variabel textInvalidEmail"
+  },
+  "textInvalidPassword": "Password minimal terdiri dari 8 karakter",
+  "@textInvalidPassword": {
+    "description": "Deskripsi mengenai variabel textInvalidPassword"
+  },
+  "textInvalidRepeatPassword": "Password tidak sama",
+  "@textInvalidRepeatPassword": {
+    "description": "Deskripsi mengenai variabel textInvalidRepeatPassword"
+  },
+  "textRequired": "Input ini tidak bisa kosong",
+  "@textRequired": {
+    "description": "Deskripsi mengenai variabel textRequired"
+  },
+  "textStoryList": "Daftar Cerita",
+  "@textStoryList": {
+    "description": "Deskripsi mengenai variabel textStoryList"
+  },
+  "textStoryDetail": "Detail Cerita",
+  "@textStoryDetail": {
+    "description": "Deskripsi mengenai variabel textStoryDetail"
+  },
+  "textStoryAddNew": "Tambahkan Cerita",
+  "@textStoryAddNew": {
+    "description": "Deskripsi mengenai variabel textStoryAddNew"
+  },
+  "textStoryPickImage": "Pilih Gambar",
+  "@textStoryPickImage": {
+    "description": "Deskripsi mengenai variabel textStoryPickImage"
+  },
+  "textStoryPickImageGallery": "Ambil dari galeri",
+  "@textStoryPickImageGallery": {
+    "description": "Deskripsi mengenai variabel textStoryPickImageGallery"
+  },
+  "textStoryPickImageCamera": "Ambil dari kamera",
+  "@textStoryPickImageCamera": {
+    "description": "Deskripsi mengenai variabel textStoryPickImageCamera"
+  },
+  "textEmptyStory": "Tidak ada cerita untuk ditampilkan",
+  "@textEmptyStory": {
+    "description": "Deskripsi mengenai variabel textEmptyStory"
+  },
+  "textDontHaveAccount": "Belum memiliki akun?",
+  "@textDontHaveAccount": {
+    "description": "Deskripsi mengenai variabel textDontHaveAccount"
+  },
+  "textLoginDescription": "Masuk untuk memulai sesi",
+  "@textLoginDescription": {
+    "description": "Deskripsi mengenai variabel textLoginDescription"
+  },
+  "textRegisterDescription": "Daftarkan akun anda",
+  "@textRegisterDescription": {
+    "description": "Deskripsi mengenai variabel textRegisterDescription"
+  },
+  "textDescription": "Description",
+  "@textDescription": {
+    "description": "Deskripsi mengenai variabel textDescription"
+  },
+  "textPleaseSelectImage": "Harap pilih foto terlebih dahulu",
+  "@textPleaseSelectImage": {
+    "description": "Deskripsi mengenai variabel textPleaseSelectImage"
+  }
+}
