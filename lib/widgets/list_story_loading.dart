@@ -9,69 +9,51 @@ class ListStoryLoading extends StatelessWidget {
     return ListView.separated(
       itemCount: 10,
       padding: const EdgeInsets.all(16),
-      itemBuilder: (context, index) => Ink(
-        decoration: BoxDecoration(
-          color: Colors.white,
-          borderRadius: BorderRadius.circular(8),
-          boxShadow: const [
-            BoxShadow(color: Colors.black26),
-            BoxShadow(color: Colors.black26),
-            BoxShadow(color: Colors.black26),
-            BoxShadow(color: Colors.black26),
-          ],
-        ),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.stretch,
-          children: [
-            ClipRRect(
-              borderRadius: const BorderRadius.only(
-                topLeft: Radius.circular(8),
-                topRight: Radius.circular(8),
-              ),
-              child: Shimmer.fromColors(
-                baseColor: Colors.grey.shade300,
-                highlightColor: Colors.grey.shade100,
-                child: Ink(
-                  height: 150,
-                  color: Colors.grey.shade300,
-                ),
-              ),
-            ),
-            const SizedBox(height: 10),
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 10),
-              child: Shimmer.fromColors(
-                baseColor: Colors.grey.shade300,
-                highlightColor: Colors.grey.shade100,
-                child: Ink(
-                  height: 14,
-                  decoration: BoxDecoration(
-                    color: Colors.grey.shade300,
-                    borderRadius: BorderRadius.circular(4),
-                  ),
-                ),
-              ),
-            ),
-            const SizedBox(height: 4),
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 10),
-              child: Shimmer.fromColors(
-                baseColor: Colors.grey.shade300,
-                highlightColor: Colors.grey.shade100,
-                child: Ink(
-                  height: 16,
-                  decoration: BoxDecoration(
-                    color: Colors.grey.shade300,
-                    borderRadius: BorderRadius.circular(4),
-                  ),
-                ),
-              ),
-            ),
-            const SizedBox(height: 10),
-          ],
+      itemBuilder: (context, index) => _buildStoryItem(),
+      separatorBuilder: (context, index) => const SizedBox(height: 8),
+    );
+  }
+
+  Widget _buildStoryItem() {
+    return Ink(
+      decoration: BoxDecoration(
+        color: Colors.white,
+        borderRadius: BorderRadius.circular(8),
+        boxShadow: const [
+          BoxShadow(color: Colors.black26),
+          BoxShadow(color: Colors.black26),
+          BoxShadow(color: Colors.black26),
+          BoxShadow(color: Colors.black26),
+        ],
+      ),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.stretch,
+        children: [
+          _buildShimmerContainer(height: 150),
+          const SizedBox(height: 10),
+          _buildShimmerContainer(height: 14),
+          const SizedBox(height: 4),
+          _buildShimmerContainer(height: 16),
+          const SizedBox(height: 10),
+        ],
+      ),
+    );
+  }
+
+  Widget _buildShimmerContainer({required double height}) {
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 10),
+      child: Shimmer.fromColors(
+        baseColor: Colors.grey.shade300,
+        highlightColor: Colors.grey.shade100,
+        child: Container(
+          height: height,
+          decoration: BoxDecoration(
+            color: Colors.grey.shade300,
+            borderRadius: BorderRadius.circular(4),
+          ),
         ),
       ),
-      separatorBuilder: (context, index) => const SizedBox(height: 8),
     );
   }
 }
