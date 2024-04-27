@@ -20,8 +20,7 @@ class UtilimageSelector {
                 onGallery();
               },
               title: const Text(
-                'Ambil dari galeri',
-                style: TextStyle(fontFamily: 'inter'),
+                'Buka dari Gallery',
               ),
               leading: const Icon(Icons.image),
             ),
@@ -31,8 +30,7 @@ class UtilimageSelector {
                 onCamera();
               },
               title: const Text(
-                'Ambil dari kamera',
-                style: TextStyle(fontFamily: 'inter'),
+                'Gunakan Kamera',
               ),
               leading: const Icon(Icons.camera_alt),
             ),

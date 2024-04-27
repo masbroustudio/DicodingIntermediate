@@ -23,7 +23,7 @@ class HomestoryPage extends StatefulWidget {
 
 class _HomestoryPageState extends State<HomestoryPage> {
   _initLoadData() async {
-    await Future.delayed(const Duration(milliseconds: 300));
+    await Future.delayed(const Duration(milliseconds: 500));
     if (mounted) {
       context.read<AllstoryProvider>().getAllStories();
     }
