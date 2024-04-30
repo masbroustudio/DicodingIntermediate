@@ -30,10 +30,9 @@ class AuthProvider extends ChangeNotifier {
       final registerResponse = await apiProvider.register(user);
       return registerResponse != null && registerResponse.error == false;
     } catch (error) {
-      // Handle registration errors more gracefully
       if (kDebugMode) {
         print(error.toString());
-      } // Log the error for debugging
+      }
       throw Exception('Registration failed. Please try again later.');
     } finally {
       isLoadingLogin = false;

@@ -8,8 +8,7 @@ class RegisterPage extends StatefulWidget {
   const RegisterPage({super.key});
 
   @override
-  // ignore: library_private_types_in_public_api
-  _RegisterPageState createState() => _RegisterPageState();
+  State<RegisterPage> createState() => _RegisterPageState();
 }
 
 class _RegisterPageState extends State<RegisterPage> {
@@ -17,7 +16,41 @@ class _RegisterPageState extends State<RegisterPage> {
   final TextEditingController emailController = TextEditingController();
   final TextEditingController passwordController = TextEditingController();
   bool isPasswordVisible = false;
-  final formKey = GlobalKey<FormState>(); // Add this line
+  final formKey = GlobalKey<FormState>();
+
+  String? validateName(String? value) {
+    if (value == null || value.isEmpty) {
+      return 'Please enter your full name.';
+    }
+    return null;
+  }
+
+  String? validateEmail(String? value) {
+    if (value == null || value.isEmpty) {
+      return 'Please enter your email.';
+    }
+    if (!value.contains('@')) {
+      return 'Please enter a valid email.';
+    }
+    return null;
+  }
+
+  String? validatePassword(String? value) {
+    if (value == null || value.isEmpty) {
+      return 'Please enter your password.';
+    }
+    if (value.length < 8) {
+      return 'Password must be at least 8 characters.';
+    }
+    return null;
+  }
+
+  @override
+  void dispose() {
+    emailController.dispose();
+    passwordController.dispose();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -51,8 +84,9 @@ class _RegisterPageState extends State<RegisterPage> {
                             const SizedBox(
                               height: 200,
                             ),
-                            TextField(
+                            TextFormField(
                               controller: nameController,
+                              validator: validateName,
                               decoration: InputDecoration(
                                 labelText: 'Name',
                                 fillColor: Colors.grey[200],
@@ -64,8 +98,9 @@ class _RegisterPageState extends State<RegisterPage> {
                               ),
                             ),
                             const SizedBox(height: 16.0),
-                            TextField(
+                            TextFormField(
                               controller: emailController,
+                              validator: validateEmail,
                               decoration: InputDecoration(
                                 labelText: 'Email',
                                 fillColor: Colors.grey[200],
@@ -77,8 +112,9 @@ class _RegisterPageState extends State<RegisterPage> {
                               ),
                             ),
                             const SizedBox(height: 16.0),
-                            TextField(
+                            TextFormField(
                               controller: passwordController,
+                              validator: validatePassword,
                               obscureText: !isPasswordVisible,
                               decoration: InputDecoration(
                                 labelText: 'Password',
@@ -111,7 +147,6 @@ class _RegisterPageState extends State<RegisterPage> {
                                   ))
                                 : ElevatedButton(
                                     onPressed: () async {
-                                      // Implement registration logic here
                                       if (formKey.currentState!.validate()) {
                                         final scaffoldMessenger =
                                             ScaffoldMessenger.of(context);
@@ -133,7 +168,7 @@ class _RegisterPageState extends State<RegisterPage> {
                                                   "Registration successful. Please log in."),
                                             ),
                                           );
-                                          // Navigate back to login after successful registration
+
                                           if (!context.mounted) return;
                                           context.go('/login');
                                         } else {
@@ -147,7 +182,7 @@ class _RegisterPageState extends State<RegisterPage> {
                                       }
                                     },
                                     style: ElevatedButton.styleFrom(
-                                      backgroundColor: Colors.blue,
+                                      backgroundColor: const Color(0xFF004418),
                                       shape: RoundedRectangleBorder(
                                         borderRadius:
                                             BorderRadius.circular(10.0),

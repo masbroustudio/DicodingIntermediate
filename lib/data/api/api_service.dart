@@ -1,6 +1,5 @@
 import 'package:http/http.dart' as http;
 import 'dart:convert';
-import 'dart:io';
 
 import 'package:youstoryapp02/data/db/auth_repository.dart';
 import 'package:youstoryapp02/data/model/story_response.dart';
@@ -51,7 +50,6 @@ class StoryApiService {
       {double? lat, double? lon}) async {
     final authToken = await authRepository.getToken();
     if (authToken == null) {
-      // Handle the case where the token is not available
       throw Exception("Token not available");
     }
 
@@ -75,36 +73,13 @@ class StoryApiService {
     return StoryResponse.fromJson(jsonDecode(response.body));
   }
 
-  Future<StoryResponse> addNewStoryGuest(String description, File photo,
-      {double? lat, double? lon}) async {
-    final url = '$baseUrl/stories/guest';
-    final Map<String, String> headers = {
-      "Content-type": "multipart/form-data",
-    };
-    final request = http.MultipartRequest('POST', Uri.parse(url));
-    request.headers.addAll(headers);
-    request.fields.addAll({
-      'description': description,
-      'lat': lat?.toString() ?? '',
-      'lon': lon?.toString() ?? ''
-    });
-    request.files.add(http.MultipartFile(
-        'photo', photo.readAsBytes().asStream(), photo.lengthSync(),
-        filename: 'photo'));
-
-    final response = await http.Response.fromStream(await request.send());
-    return StoryResponse.fromJson(jsonDecode(response.body));
-  }
-
   Future<StoryResponse> getAllStories(
       {int? page, int? size, int? location}) async {
     final authToken = await authRepository.getToken();
     if (authToken == null) {
-      // Handle the case where the token is not available
       throw Exception("Token not available");
     }
 
-    //final url = '$baseUrl/stories?page=$page&size=$size&location=$location';
     final url = '$baseUrl/stories?page=$page&size=$size';
     final Map<String, String> headers = {"Authorization": "Bearer $authToken"};
 
@@ -115,7 +90,6 @@ class StoryApiService {
   Future<StoryResponse> getDetailStory(String id) async {
     final authToken = await authRepository.getToken();
     if (authToken == null) {
-      // Handle the case where the token is not available
       throw Exception("Token not available");
     }
 

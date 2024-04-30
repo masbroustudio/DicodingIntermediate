@@ -1,5 +1,4 @@
 import 'dart:developer';
-
 import 'package:location/location.dart';
 import 'package:geocoding/geocoding.dart' as geo;
 import 'package:google_maps_flutter/google_maps_flutter.dart';
@@ -16,7 +15,7 @@ class LocationHandler {
     if (!serviceEnabled) {
       serviceEnabled = await _location.requestService();
       if (!serviceEnabled) {
-        log("Location services is not available");
+        log("Location services is not enabled");
         return null;
       }
     }
@@ -25,7 +24,7 @@ class LocationHandler {
     if (permissionGranted == PermissionStatus.denied) {
       permissionGranted = await _location.requestPermission();
       if (permissionGranted != PermissionStatus.granted) {
-        log("Location permission is denied");
+        log("Please allow location permission");
         return null;
       }
     }

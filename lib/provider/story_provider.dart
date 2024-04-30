@@ -1,4 +1,3 @@
-import 'dart:io';
 import 'dart:typed_data';
 
 import 'package:image/image.dart' as img;
@@ -70,27 +69,6 @@ class StoryProvider extends ChangeNotifier {
         lat: lat,
         lon: lon,
       );
-      _handleUploadResponse(response);
-    } catch (e) {
-      _handleUploadError(e);
-    }
-  }
-
-  Future<void> addNewStoryGuest(String description, File photo,
-      {double? lat, double? lon}) async {
-    try {
-      _startUploading();
-
-      final fileBytes = await photo.readAsBytes();
-      final compressedImageBytes = await compressImage(fileBytes);
-
-      final response = await _apiService.addNewStoryGuest(
-        description,
-        File.fromRawPath(Uint8List.fromList(compressedImageBytes)),
-        lat: lat,
-        lon: lon,
-      );
-
       _handleUploadResponse(response);
     } catch (e) {
       _handleUploadError(e);

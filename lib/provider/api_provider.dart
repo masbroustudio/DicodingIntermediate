@@ -13,12 +13,10 @@ class ApiProvider {
       final loginResponse = await storyApiService.login(email, password);
       return loginResponse;
     } on Exception catch (error) {
-      // Handle login errors gracefully
       if (kDebugMode) {
         print(error.toString());
-      } // Log the error for debugging
-      throw Exception(
-          'Login failed. Please check your credentials.'); // More user-friendly error message
+      }
+      throw Exception('Login failed. Please check your credentials.');
     }
   }
 
@@ -27,12 +25,10 @@ class ApiProvider {
       final registerResponse = await storyApiService.register(user);
       return registerResponse;
     } on Exception catch (error) {
-      // Handle registration errors gracefully
       if (kDebugMode) {
         print(error.toString());
-      } // Log the error for debugging
-      throw Exception(
-          'Registration failed. Please try again later.'); // More user-friendly error message
+      }
+      throw Exception('Registration failed. Please try again later.');
     }
   }
 }

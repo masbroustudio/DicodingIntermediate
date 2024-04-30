@@ -32,9 +32,7 @@ class AppDrawer extends StatelessWidget {
                 Text('Ganti Bahasa'),
               ],
             ),
-            onTap: () {
-              // Handle item tap
-            },
+            onTap: () {},
           ),
           ListTile(
             title: const Row(
@@ -66,7 +64,6 @@ class AppDrawer extends StatelessWidget {
               ],
             ),
             onTap: () async {
-              // Handle item tap
               final result = await authWatch.logout();
               if (context.mounted && result) {
                 context.goNamed('login');

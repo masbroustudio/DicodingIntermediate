@@ -1,5 +1,4 @@
 import 'dart:io';
-
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
@@ -41,11 +40,11 @@ class _AddStoryPageState extends State<AddStoryPage> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [
-              _buildImagePreview(),
-              _buildImageButtons(),
-              _buildDescriptionTextField(),
-              _buildInputLocationButton(),
-              _buildUploadButton(),
+              _wdbImagePreview(),
+              _wdbImageButtons(),
+              _wdbDescriptionTextField(),
+              _wdbInputLocationButton(),
+              _wdbUploadButton(),
             ],
           ),
         ),
@@ -53,7 +52,7 @@ class _AddStoryPageState extends State<AddStoryPage> {
     );
   }
 
-  Widget _buildImagePreview() {
+  Widget _wdbImagePreview() {
     final imagePath = context.watch<HomeProvider>().imagePath;
 
     return Container(
@@ -85,21 +84,21 @@ class _AddStoryPageState extends State<AddStoryPage> {
     );
   }
 
-  Widget _buildImageButtons() {
+  Widget _wdbImageButtons() {
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 16.0),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          _buildElevatedButton("Gallery", _onGalleryView),
+          _wdbElevatedButton("Gallery", _onGalleryView),
           const SizedBox(width: 16),
-          _buildElevatedButton("Camera", _onCameraView),
+          _wdbElevatedButton("Camera", _onCameraView),
         ],
       ),
     );
   }
 
-  Widget _buildElevatedButton(String label, VoidCallback onPressed) {
+  Widget _wdbElevatedButton(String label, VoidCallback onPressed) {
     return ElevatedButton(
       onPressed: onPressed,
       child: Text(
@@ -109,14 +108,14 @@ class _AddStoryPageState extends State<AddStoryPage> {
     );
   }
 
-  Widget _buildDescriptionTextField() {
+  Widget _wdbDescriptionTextField() {
     return TextField(
       controller: descriptionController,
       keyboardType: TextInputType.multiline,
       maxLines: null,
       decoration: const InputDecoration(
         hintText: 'Enter your story description...',
-        labelText: 'Description',
+        labelText: 'Description (optional)',
         border: OutlineInputBorder(),
         hintStyle: TextStyle(color: Colors.grey),
         contentPadding: EdgeInsets.all(16.0),
@@ -124,7 +123,7 @@ class _AddStoryPageState extends State<AddStoryPage> {
     );
   }
 
-  Widget _buildInputLocationButton() {
+  Widget _wdbInputLocationButton() {
     return Padding(
       padding: const EdgeInsets.only(top: 16.0),
       child: ElevatedButton(
@@ -149,7 +148,7 @@ class _AddStoryPageState extends State<AddStoryPage> {
     );
   }
 
-  Widget _buildUploadButton() {
+  Widget _wdbUploadButton() {
     final isUploading = context.watch<StoryProvider>().isUploading;
 
     return Padding(

@@ -113,18 +113,18 @@ class _LoginPageState extends State<LoginPage> {
                   context.watch<AuthProvider>().isLoadingLogin
                       ? const Center(
                           child: CircularProgressIndicator(
-                          color: Colors.lightBlue,
+                          color: Colors.green,
                         ))
                       : _buildLoginAction(),
                   const SizedBox(height: 16.0),
                   TextButton(
                     onPressed: () {
-                      // Implement register navigation here
                       context.goNamed('register');
                     },
                     child: const Text(
                       'Register',
-                      style: TextStyle(color: Colors.blue, fontSize: 16.0),
+                      style:
+                          TextStyle(color: Color(0xFF004418), fontSize: 16.0),
                     ),
                   ),
                 ],
@@ -139,7 +139,6 @@ class _LoginPageState extends State<LoginPage> {
   ElevatedButton _buildLoginAction() {
     return ElevatedButton(
       onPressed: () async {
-        // Implement login logic here
         if (formKey.currentState!.validate()) {
           final scaffoldMessenger = ScaffoldMessenger.of(context);
           final User user = User(
@@ -158,25 +157,24 @@ class _LoginPageState extends State<LoginPage> {
             } else {
               scaffoldMessenger.showSnackBar(
                 const SnackBar(
-                  content: Text("Your email or password is invalid"),
+                  content: Text("Login failed. Please try again."),
                 ),
               );
             }
           } catch (error) {
-            // Handle login errors more gracefully
             if (kDebugMode) {
               print(error.toString());
-            } // Log the error for debugging
+            }
             scaffoldMessenger.showSnackBar(
               const SnackBar(
-                content: Text('Login failed. Please try again later.'),
+                content: Text('Your email or password is invalid'),
               ),
             );
           }
         }
       },
       style: ElevatedButton.styleFrom(
-        backgroundColor: Colors.blue,
+        backgroundColor: const Color.fromARGB(197, 2, 153, 55),
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(10.0),
         ),

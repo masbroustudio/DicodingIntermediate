@@ -8,18 +8,18 @@ class Story {
   final String? name;
   final String? description;
   final String? photoUrl;
-  final DateTime? createdAt;
   final double? lat;
   final double? lon;
+  final DateTime? createdAt;
 
   Story({
     this.id,
     this.name,
     this.description,
     this.photoUrl,
-    this.createdAt,
     this.lat,
     this.lon,
+    this.createdAt,
   });
 
   factory Story.fromJson(Map<String, dynamic> json) => _$StoryFromJson(json);

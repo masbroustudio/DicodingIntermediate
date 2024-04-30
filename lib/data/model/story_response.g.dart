@@ -8,8 +8,6 @@ part of 'story_response.dart';
 
 StoryResponse _$StoryResponseFromJson(Map<String, dynamic> json) =>
     StoryResponse(
-      error: json['error'] as bool?,
-      message: json['message'] as String?,
       loginResult: json['loginResult'] == null
           ? null
           : LoginResult.fromJson(json['loginResult'] as Map<String, dynamic>),
@@ -19,13 +17,15 @@ StoryResponse _$StoryResponseFromJson(Map<String, dynamic> json) =>
       story: json['story'] == null
           ? null
           : Story.fromJson(json['story'] as Map<String, dynamic>),
+      error: json['error'] as bool?,
+      message: json['message'] as String?,
     );
 
 Map<String, dynamic> _$StoryResponseToJson(StoryResponse instance) =>
     <String, dynamic>{
-      'error': instance.error,
-      'message': instance.message,
       'loginResult': instance.loginResult,
       'listStory': instance.listStory,
       'story': instance.story,
+      'error': instance.error,
+      'message': instance.message,
     };

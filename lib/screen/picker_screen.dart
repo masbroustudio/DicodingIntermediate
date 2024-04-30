@@ -3,7 +3,7 @@ import 'package:go_router/go_router.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:geocoding/geocoding.dart' as geo;
 import 'package:youstoryapp02/utils/location_handler.dart';
-import 'package:youstoryapp02/utils/placemark_widget.dart';
+import 'package:youstoryapp02/widget/placemark_widget.dart';
 
 class PickerScreen extends StatefulWidget {
   const PickerScreen({super.key});
@@ -34,7 +34,7 @@ class _PickerScreenState extends State<PickerScreen> {
               child: FloatingActionButton(
                 child: const Icon(Icons.my_location),
                 onPressed: () {
-                  onMyLocationButtonPress();
+                  onPressGetLocation();
                 },
               ),
             ),
@@ -113,7 +113,7 @@ class _PickerScreenState extends State<PickerScreen> {
           placemark = place;
         });
 
-        defineMarker(inputLang, street, address);
+        onDefineMarker(inputLang, street, address);
 
         setState(() {
           mapController = controller;
@@ -125,7 +125,7 @@ class _PickerScreenState extends State<PickerScreen> {
     );
   }
 
-  void defineMarker(LatLng latLng, String street, String address) {
+  void onDefineMarker(LatLng latLng, String street, String address) {
     final marker = Marker(
       markerId: const MarkerId("source"),
       position: latLng,
@@ -140,27 +140,7 @@ class _PickerScreenState extends State<PickerScreen> {
     });
   }
 
-  void onLongPressGoogleMap(LatLng latLng) async {
-    final info =
-        await geo.placemarkFromCoordinates(latLng.latitude, latLng.longitude);
-    final place = info[0];
-    final street = place.street!;
-    final address =
-        '${place.subLocality}, ${place.locality}, ${place.postalCode}, ${place.country}';
-    setState(() {
-      inputLang = latLng;
-
-      placemark = place;
-    });
-
-    defineMarker(latLng, street, address);
-
-    mapController.animateCamera(
-      CameraUpdate.newLatLng(latLng),
-    );
-  }
-
-  void onMyLocationButtonPress() async {
+  void onPressGetLocation() async {
     final LatLng? latLng = await _locationHandler.getCurrentLocation();
 
     if (latLng != null) {
@@ -176,11 +156,31 @@ class _PickerScreenState extends State<PickerScreen> {
         placemark = place;
       });
 
-      defineMarker(latLng, street, address);
+      onDefineMarker(latLng, street, address);
 
       mapController.animateCamera(
         CameraUpdate.newLatLng(latLng),
       );
     }
+  }
+
+  void onLongPressGoogleMap(LatLng latLng) async {
+    final info =
+        await geo.placemarkFromCoordinates(latLng.latitude, latLng.longitude);
+    final place = info[0];
+    final street = place.street!;
+    final address =
+        '${place.subLocality}, ${place.locality}, ${place.postalCode}, ${place.country}';
+    setState(() {
+      inputLang = latLng;
+
+      placemark = place;
+    });
+
+    onDefineMarker(latLng, street, address);
+
+    mapController.animateCamera(
+      CameraUpdate.newLatLng(latLng),
+    );
   }
 }

@@ -6,7 +6,8 @@ import 'package:youstoryapp02/data/db/auth_repository.dart';
 import 'package:youstoryapp02/data/model/story.dart';
 import 'package:youstoryapp02/provider/story_provider.dart';
 import 'package:youstoryapp02/utils/app_drawer.dart';
-import 'package:youstoryapp02/utils/favorite_widget.dart';
+import 'package:youstoryapp02/widget/favorite_widget.dart';
+import 'package:geocoding/geocoding.dart' as geo;
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -66,9 +67,7 @@ class _HomePageState extends State<HomePage> {
                   if (val == true) {
                     if (!context.mounted) return;
                     setState(() {
-                      context
-                          .read<StoryProvider>()
-                          .resetPagination(); // Reset pagination
+                      context.read<StoryProvider>().resetPagination();
                       context.read<StoryProvider>().getAllStories();
                     });
                   }
@@ -91,9 +90,20 @@ class _HomePageState extends State<HomePage> {
     );
   }
 
+  Future<String> getInfoLocation(Story? story) async {
+    final info = await geo.placemarkFromCoordinates(
+        story?.lat ?? 0.0, story?.lon ?? 0.0);
+
+    final place = info.isNotEmpty ? info[0] : null;
+    final address = place != null
+        ? '${place.subLocality}, ${place.locality}, ${place.postalCode}, ${place.country}'
+        : '';
+    return address;
+  }
+
   Widget _buildStoryList(BuildContext context, StoryProvider storyProvider) {
     if (storyProvider.isFetching || storyProvider.storyList.isEmpty == true) {
-      return const Text('No stories available');
+      return const Text('Loading... No stories available');
     }
 
     return RefreshIndicator(
@@ -108,9 +118,8 @@ class _HomePageState extends State<HomePage> {
               itemBuilder: (context, index) {
                 if (index < storyProvider.storyList.length) {
                   final story = storyProvider.storyList[index];
-                  return _buildStoryCard(context, story);
+                  return _wdHomeStoryCard(context, story);
                 } else {
-                  // This is the loading indicator at the end of the list
                   return _buildLoadingIndicator();
                 }
               },
@@ -121,7 +130,7 @@ class _HomePageState extends State<HomePage> {
     );
   }
 
-  Widget _buildStoryCard(BuildContext context, Story story) {
+  Widget _wdHomeStoryCard(BuildContext context, Story story) {
     return Padding(
       padding: const EdgeInsets.all(8.0),
       child: Card(
@@ -134,9 +143,6 @@ class _HomePageState extends State<HomePage> {
               title: Text(
                 story.name ?? '',
                 style: const TextStyle(fontWeight: FontWeight.bold),
-              ),
-              subtitle: Text(
-                formatDateTime(parseDateTime('${story.createdAt}')),
               ),
             ),
             ClipRRect(
@@ -153,11 +159,11 @@ class _HomePageState extends State<HomePage> {
                 mainAxisAlignment: MainAxisAlignment.start,
                 children: [
                   Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    mainAxisAlignment: MainAxisAlignment.end,
                     children: [
                       const FavoriteButton(),
                       IconButton(
-                        icon: const Icon(Icons.comment),
+                        icon: const Icon(Icons.expand_circle_down_rounded),
                         onPressed: () async {
                           if (context.mounted) {
                             context.goNamed('detail',
@@ -168,15 +174,70 @@ class _HomePageState extends State<HomePage> {
                     ],
                   ),
                   Padding(
+                    padding: const EdgeInsets.only(
+                      left: 8,
+                    ),
+                    child: Row(
+                      children: [
+                        Expanded(
+                          child: Text(
+                            formatDateTime(parseDateTime('${story.createdAt}'),
+                                style: const TextStyle(fontSize: 6)),
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                  Padding(
                     padding: const EdgeInsets.only(left: 8),
                     child: Row(
                       children: [
+                        const FittedBox(
+                          child: Icon(
+                            Icons.list,
+                            color: Colors.grey,
+                          ),
+                        ),
+                        const SizedBox(width: 2.0),
                         Expanded(
                           child: Text(
                             story.description ?? '',
                             maxLines: 3,
                             overflow: TextOverflow.ellipsis,
                             textAlign: TextAlign.left,
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.only(left: 8),
+                    child: Row(
+                      children: [
+                        const FittedBox(
+                          child: Icon(
+                            Icons.location_on,
+                            color: Colors.grey,
+                          ),
+                        ),
+                        const SizedBox(width: 2.0),
+                        Expanded(
+                          child: FutureBuilder<String>(
+                            future: getInfoLocation(story),
+                            builder: (context, snapshot) {
+                              if (snapshot.connectionState ==
+                                  ConnectionState.waiting) {
+                                return const Text("Loading ....");
+                              } else if (snapshot.hasError) {
+                                return const Text('No Found Location');
+                              } else {
+                                final locationInfo = snapshot.data ?? '';
+                                return Text(
+                                  locationInfo,
+                                  style: const TextStyle(fontSize: 14.0),
+                                );
+                              }
+                            },
                           ),
                         ),
                       ],
@@ -200,7 +261,7 @@ class _HomePageState extends State<HomePage> {
     );
   }
 
-  String formatDateTime(DateTime? dateTime) {
+  String formatDateTime(DateTime? dateTime, {required TextStyle style}) {
     if (dateTime == null) {
       return 'No Date Available';
     }
@@ -216,7 +277,6 @@ class _HomePageState extends State<HomePage> {
       return null;
     }
 
-    // Parse the ISO 8601 formatted string
     final dateTime = DateTime.tryParse(dateTimeString);
 
     return dateTime;

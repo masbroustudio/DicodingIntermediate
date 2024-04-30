@@ -3,11 +3,11 @@ import 'package:google_fonts/google_fonts.dart';
 
 class CustomTheme {
   static final ThemeData appTheme = ThemeData(
-    primaryColor: Colors.blue,
-    hintColor: Colors.blueAccent,
+    primaryColor: Colors.green[700],
+    hintColor: Colors.green[600],
     scaffoldBackgroundColor: Colors.white,
     appBarTheme: const AppBarTheme(
-      backgroundColor: Colors.blue,
+      backgroundColor: Colors.green,
       foregroundColor: Colors.black,
       iconTheme: IconThemeData(color: Colors.white),
       titleTextStyle: TextStyle(
@@ -26,7 +26,7 @@ class CustomTheme {
     ),
     elevatedButtonTheme: ElevatedButtonThemeData(
       style: ElevatedButton.styleFrom(
-        backgroundColor: Colors.blue,
+        backgroundColor: Colors.green[900],
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(10.0),
         ),
@@ -34,7 +34,7 @@ class CustomTheme {
     ),
     textTheme: GoogleFonts.poppinsTextTheme(),
     iconTheme: const IconThemeData(
-      color: Colors.blue,
+      color: Color(0xFF004418),
     ),
   );
 }
